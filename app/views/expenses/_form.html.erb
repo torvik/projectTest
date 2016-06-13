@@ -1,0 +1,83 @@
+<%= form_for @expense, :html => { :class => "form-horizontal expense" } do |f| %>
+
+  <% if @expense.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @expense.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:name) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :description, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:description) %>
+  </div>
+  
+   <div class="form-group">
+    <%= f.label :type_expense, "Tipo de Despesa", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+    <%= f.select(:type_expense,  Expense::EXPENSE_TYPES, {:prompt => "Selecione o tipo de despesa"}, {class: "form-control"}) %>
+    </div>
+    <%=f.error_span(:type_expense) %>
+  </div>
+  
+  
+  <div class="form-group">
+    <%= f.label :date_expense, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :date_expense, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:date_expense) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :date_payment, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :date_payment, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:date_payment) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :price, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :price, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:price) %>
+  </div>
+
+
+   <div class="form-group">
+    <%= f.label :payment_form, "Forma de Pg", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+    <%= f.select(:payment_form,  Expense::PAYMENT_TYPES, {:prompt => "Selecione a forma de pagamento"}, {class: "form-control"}) %>
+    </div>
+    <%=f.error_span(:payment_form) %>
+  </div>
+  
+  
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                expenses_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>
